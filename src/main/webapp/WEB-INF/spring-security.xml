@@ -2,24 +2,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd
+
+
+
+
+
+
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
-       
+
        <security:http auto-config="true">
               <!-- <access-denied-handler error-page="/access_denied" /> -->
               <security:intercept-url pattern="/admin**" access="hasRole('ROLE_USER')" />
-              <security:intercept-url pattern="/user**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_GUEST')"  />
+              <!--<security:intercept-url pattern="/user**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_GUEST')"  />-->
               <security:intercept-url pattern="/welcome**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_GUEST')" />
               <security:session-management invalid-session-url="/login" session-fixation-protection="newSession" >
                      <security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
@@ -42,7 +39,15 @@
                             <security:user name="admin" password="123456" authorities="ROLE_ADMIN" />
                      </security:user-service>
               </security:authentication-provider>
-              <!--<security:authentication-provider user-service-ref="customUserDetailsService"/>-->
+              <security:authentication-provider user-service-ref="userDetailsService">
+                     <security:password-encoder ref="passwordEncoder"/>
+              </security:authentication-provider>
        </security:authentication-manager>
+
+       <bean id="userDetailsService" class="com.springapp.mvc.service.UserServiceImpl" />
+
+       <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+              <constructor-arg value="256"/>
+       </bean>
 
 </beans>

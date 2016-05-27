@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class HelloController {
 	@RequestMapping(method = RequestMethod.GET)
-	public String login(ModelMap model) {
+	public String hello(ModelMap model) {
 		model.addAttribute("message", "Hello world!");
-		return "login";
+		return "hello";
 	}
 	@RequestMapping(value = { "/welcome**" },method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
 		model.addAttribute("message", "Hello world!");
 		return "welcome";
+	}
+	@RequestMapping(value = { "/login" },method = RequestMethod.GET)
+	public String login(ModelMap model) {
+		model.addAttribute("message", "Hello world!");
+		return "login";
 	}
 }
