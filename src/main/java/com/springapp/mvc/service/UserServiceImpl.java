@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
+    public List<User> findUserByloginId(String loginId) {
+        return userDao.findUserByLoginId(loginId);
+    }
+
+    @Override
+    @Transactional
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
         logger.debug("loginId "+loginId);
         if(userDao == null){

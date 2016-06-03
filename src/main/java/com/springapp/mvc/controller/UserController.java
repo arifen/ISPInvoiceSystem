@@ -4,6 +4,7 @@ import com.springapp.mvc.model.Role;
 import com.springapp.mvc.model.User;
 import com.springapp.mvc.service.RoleService;
 import com.springapp.mvc.service.UserService;
+import com.springapp.mvc.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -33,12 +34,18 @@ public class UserController {
     @Qualifier("roleService")
     private RoleService roleService;
 
+    @Autowired
+    @Qualifier("userValidator")
+    private UserValidator userValidator;
+
     @ModelAttribute
     public void selectRole(Model model){
         model.addAttribute("Role",roleService.findAllRole());
     }
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) throws Exception {
+        binder.setValidator(userValidator);
         binder.registerCustomEditor(Role.class, "role", new PropertyEditorSupport() {
             @Override
             public void setAsText(String name) {
