@@ -1,5 +1,9 @@
 package com.springapp.mvc.model;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 
@@ -12,13 +16,19 @@ public class User {
 	private long userId;
 
 	@Column(name="name")
+	@Size(min = 5, max = 20)
 	private String name;
+
+	@NotEmpty
+	@Email
 	@Column(name="emailAddress")
 	private String emailAddress;
 
+	@Size(min = 6, max = 15)
 	@Column(name="loginId")
 	private String loginId;
 
+	@Size(min = 6, max = 256)
 	@Column(name="password")
 	private String password;
 

@@ -28,16 +28,13 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public User findUserByLoginId(String loginId) {
+    public List<User> findUserByLoginId(String loginId) {
 
         Session session = this.sessionFactory.getCurrentSession();
         System.out.print("login id "+loginId);
         Query query = session.createQuery("from User where loginId = :loginId ");
         query.setParameter("loginId", loginId);
         List<User> list = query.list();
-        if(list != null && list.size()>0){
-            return list.get(0);
-        }
-        return null;
+        return list;
     }
 }

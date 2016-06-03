@@ -1,6 +1,7 @@
 package com.springapp.mvc.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by arifen on 5/25/16.
@@ -13,6 +14,7 @@ public class Role {
     @Column(name="Id")
     private long roleId;
 
+    @NotNull
     @Column(name="roleName")
     private String roleName;
 

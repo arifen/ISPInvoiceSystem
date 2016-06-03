@@ -52,15 +52,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(userDao == null){
             logger.debug("userdao is null");
         }
-
-        User user = userDao.findUserByLoginId(loginId);
+        List<User> user = userDao.findUserByLoginId(loginId);
+        //User user = userDao.findUserByLoginId(loginId);
         System.out.println("UserRole : "+user);
-        if(user==null){
+        if((user==null) || (user.size()<1)){
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getLoginId(), user.getPassword(),
-                true, true, true, true, getGrantedAuthorities(user));
+        return new org.springframework.security.core.userdetails.User(user.get(0).getLoginId(), user.get(0).getPassword(),
+                true, true, true, true, getGrantedAuthorities(user.get(0)));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user){

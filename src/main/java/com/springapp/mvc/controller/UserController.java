@@ -2,12 +2,15 @@ package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Role;
 import com.springapp.mvc.model.User;
+import com.springapp.mvc.service.RoleService;
 import com.springapp.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,30 +28,41 @@ public class UserController {
     @Autowired
     @Qualifier("userService")
     private UserService userService;
+
+    @Autowired
+    @Qualifier("roleService")
+    private RoleService roleService;
+
+    @ModelAttribute
+    public void selectRole(Model model){
+        model.addAttribute("Role",roleService.findAllRole());
+    }
     @InitBinder
     protected void initBinder(WebDataBinder binder) throws Exception {
         binder.registerCustomEditor(Role.class, "role", new PropertyEditorSupport() {
             @Override
-            public void setAsText(String text) {
-                //Role role = childService.findById(Long.parseLong(text));
-                Role role = new Role();
+            public void setAsText(String name) {
+                Role role = roleService.findRoleByName(name);
                 setValue(role);
             }
         });
     }
     @RequestMapping(value = { "/usercreate" })
-    public String usercreate() {
+    public String usercreate(Model modelMap) {
+       /* System.out.println("Number of role "+roleService.findAllRole().size());
+        modelMap.addAttribute();*/
+        modelMap.addAttribute("user",new User());
         return "createuser";
     }
 
     @RequestMapping(value = { "/userregister" }, method = RequestMethod.POST)
-    public String userregistration(@ModelAttribute("user") User user,BindingResult bnResult,ModelMap  modelMap) {
+    public String userregistration(@Validated @ModelAttribute("user") User user,BindingResult bnResult,ModelMap  modelMap) {
         if(bnResult.hasErrors()){
-            modelMap.addAttribute("msg",bnResult.getAllErrors());
+            modelMap.addAttribute("msg","User has not been saved");
             return "createuser";
         }
         userService.saveUser(user);
         modelMap.addAttribute("msg","User has been saved successfully");
-        return "createuser";
+        return "login";
     }
 }
