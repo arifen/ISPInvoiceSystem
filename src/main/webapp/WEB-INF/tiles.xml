@@ -26,5 +26,9 @@
         <put-attribute name="title" value="Hello Spring MVC" />
         <put-attribute name="body" value="/WEB-INF/pages/registration/register.jsp" />
     </definition>
+    <definition name="uploadfile" extends="defaultTemplate">
+        <put-attribute name="title" value="Hello Spring MVC" />
+        <put-attribute name="body" value="/WEB-INF/pages/registration/fileupload.jsp" />
+    </definition>
 
 </tiles-definitions>

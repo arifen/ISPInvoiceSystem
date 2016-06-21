@@ -32,7 +32,10 @@ public class User {
 	@Column(name="password")
 	private String password;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@Column(name="imageLocation")
+	private String imageLocation;
+
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "User_ROLE",
 			joinColumns = { @JoinColumn(name = "userId") },
 			inverseJoinColumns = { @JoinColumn(name = "Id") })
@@ -82,6 +85,14 @@ public class User {
 		this.role = role;
 	}
 
+	public String getImageLocation() {
+		return imageLocation;
+	}
+
+	public void setImageLocation(String imageLocation) {
+		this.imageLocation = imageLocation;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -90,6 +101,7 @@ public class User {
 				", emailAddress='" + emailAddress + '\'' +
 				", loginId='" + loginId + '\'' +
 				", password='" + password + '\'' +
+				", imageLocation='" + imageLocation + '\'' +
 				", role=" + role +
 				'}';
 	}

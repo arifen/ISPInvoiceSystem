@@ -1,5 +1,6 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.model.FileBucket;
 import com.springapp.mvc.model.Role;
 import com.springapp.mvc.model.User;
 import com.springapp.mvc.service.RoleService;
@@ -43,7 +44,10 @@ public class UserController {
         model.addAttribute("Role",roleService.findAllRole());
     }
 
-    @InitBinder
+
+    /*Specifying model attribute names or request parameter names here restricts the init-binder method to those specific attributes/parameters,
+    with different init-binder methods typically applying to different groups of attributes or parameters*/
+    @InitBinder("user")
     protected void initBinder(WebDataBinder binder) throws Exception {
         binder.setValidator(userValidator);
         binder.registerCustomEditor(Role.class, "role", new PropertyEditorSupport() {
@@ -56,8 +60,6 @@ public class UserController {
     }
     @RequestMapping(value = { "/usercreate" })
     public String usercreate(Model modelMap) {
-       /* System.out.println("Number of role "+roleService.findAllRole().size());
-        modelMap.addAttribute();*/
         modelMap.addAttribute("user",new User());
         return "createuser";
     }
@@ -70,6 +72,8 @@ public class UserController {
         }
         userService.saveUser(user);
         modelMap.addAttribute("msg","User has been saved successfully");
-        return "login";
+        modelMap.addAttribute("userId",user.getUserId());
+        modelMap.addAttribute("fileBucket",new FileBucket());
+        return "uploadfile";
     }
 }

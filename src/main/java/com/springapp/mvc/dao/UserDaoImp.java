@@ -23,7 +23,8 @@ public class UserDaoImp implements UserDao {
         Session session = this.sessionFactory.getCurrentSession();
         // TODO Auto-generated method stub
         System.out.println("AMLOG:: user: " + user);
-        session.save(user);
+        //session.save(user);
+        session.saveOrUpdate(user);
         System.out.println("AMLOG:: UserId: " + user.getUserId());
     }
 
@@ -36,5 +37,12 @@ public class UserDaoImp implements UserDao {
         query.setParameter("loginId", loginId);
         List<User> list = query.list();
         return list;
+    }
+
+    @Override
+    public User findByUserId(Long userId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        User user = (User) session.get(User.class,userId);
+        return user;
     }
 }

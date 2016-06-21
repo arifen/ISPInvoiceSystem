@@ -49,5 +49,8 @@
        <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
               <constructor-arg value="256"/>
        </bean>
+       <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+              <property name="maxUploadSize" value="500000" />
+       </bean>-->
 
 </beans>
