@@ -68,6 +68,7 @@
                 <form:errors path="role" cssStyle="color: red;"/>
             </td>
         </tr>
+        <form:hidden path="status" value="pre-reg"/>
             <%--<tr>
               <td>
                 Role:
