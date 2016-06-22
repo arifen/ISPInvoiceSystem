@@ -15,12 +15,12 @@ public class HelloController {
 	}
 	@RequestMapping(value = { "/welcome**" },method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		model.addAttribute("message", "Hello world!");
+		model.addAttribute("message", "Well Come to health System");
 		return "welcome";
 	}
 	@RequestMapping(value = { "/login" },method = RequestMethod.GET)
 	public String login(ModelMap model) {
-		model.addAttribute("message", "Hello world!");
+		model.addAttribute("message", "Well Come to Health System");
 		return "login";
 	}
 }

@@ -12,4 +12,5 @@ public interface UserDao {
     void addUser(User user);
     List<User> findUserByLoginId(String loginId);
     User findByUserId(Long userId);
+    List<User> findUserByStatus(String status);
 }

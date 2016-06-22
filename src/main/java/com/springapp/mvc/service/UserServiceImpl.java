@@ -6,7 +6,6 @@ import com.springapp.mvc.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,18 +30,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Qualifier("userDao")
     private UserDao userDao;
 
-    @Autowired
-    private ShaPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public void saveUser(User user) {
         if(user != null){
             logger.debug("User "+user);
-            user.setPassword(passwordEncoder.encodePassword(user.getPassword(),null));
             userDao.addUser(user);
             logger.debug("uer has saved");
         }
+    }
+
+    @Override
+    @Transactional
+    public List<User> findAllPendingUser() {
+        return userDao.findUserByStatus("pre-reg");
     }
 
     @Override
@@ -65,7 +67,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             logger.debug("userdao is null");
         }
         List<User> user = userDao.findUserByLoginId(loginId);
-        //User user = userDao.findUserByLoginId(loginId);
         System.out.println("UserRole : "+user);
         if((user==null) || (user.size()<1)){
             System.out.println("User not found");

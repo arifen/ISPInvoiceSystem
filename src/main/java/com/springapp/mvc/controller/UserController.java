@@ -8,6 +8,7 @@ import com.springapp.mvc.service.UserService;
 import com.springapp.mvc.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.beans.PropertyEditorSupport;
+import java.util.List;
 
 /**
  * Created by arifen on 5/25/16.
@@ -38,6 +40,9 @@ public class UserController {
     @Autowired
     @Qualifier("userValidator")
     private UserValidator userValidator;
+
+    @Autowired
+    private ShaPasswordEncoder passwordEncoder;
 
     @ModelAttribute
     public void selectRole(Model model){
@@ -70,10 +75,18 @@ public class UserController {
             modelMap.addAttribute("msg","User has not been saved");
             return "createuser";
         }
+        user.setPassword(passwordEncoder.encodePassword(user.getPassword(),null));
         userService.saveUser(user);
         modelMap.addAttribute("msg","User has been saved successfully");
         modelMap.addAttribute("userId",user.getUserId());
         modelMap.addAttribute("fileBucket",new FileBucket());
         return "uploadfile";
+    }
+
+    @RequestMapping(value = { "/userlist" })
+    public String findpendinguser(ModelMap  modelMap) {
+        List<User> userList=userService.findAllPendingUser();
+        modelMap.addAttribute("userlist",userList);
+        return "pendingUsers";
     }
 }

@@ -43,6 +43,6 @@
            value="${_csrf.token}" />
 
   </form>
-  <a href="/usercreate">Create</a>
+  <a href="/usercreate">Register User</a>
 </body>
 </html>

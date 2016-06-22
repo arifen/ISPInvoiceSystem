@@ -45,4 +45,15 @@ public class UserDaoImp implements UserDao {
         User user = (User) session.get(User.class,userId);
         return user;
     }
+
+    @Override
+    public List<User> findUserByStatus(String status) {
+        Session session = this.sessionFactory.getCurrentSession();
+        System.out.print("status "+status);
+        Query query = session.createQuery("from User where status = :status ");
+        query.setParameter("status", status);
+        List<User> list = query.list();
+        return list;
+    }
+
 }

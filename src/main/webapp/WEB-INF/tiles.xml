@@ -10,25 +10,39 @@
         <put-attribute name="body" value="/template/body.jsp" />
         <put-attribute name="footer" value="/template/footer.jsp" />
     </definition>
+    <definition name="registerTemplate" template="/template/template.jsp">
+        <put-attribute name="header" value="/template/header.jsp" />
+        <put-attribute name="menu" value="/template/menuplain.jsp" />
+        <put-attribute name="body" value="/template/body.jsp" />
+        <put-attribute name="footer" value="/template/footer.jsp" />
+    </definition>
     <definition name="hello" extends="defaultTemplate">
         <put-attribute name="title" value="Hello Spring MVC" />
         <put-attribute name="body" value="/WEB-INF/pages/hello.jsp" />
     </definition>
     <definition name="welcome" extends="defaultTemplate">
         <put-attribute name="title" value="Hello Spring MVC" />
-        <put-attribute name="body" value="/WEB-INF/pages/hello.jsp" />
+        <put-attribute name="body" value="/WEB-INF/pages/home.jsp" />
     </definition>
-    <definition name="login" extends="defaultTemplate">
-        <put-attribute name="title" value="Hello Spring MVC" />
+    <definition name="login" extends="registerTemplate">
+        <put-attribute name="title" value="login" />
         <put-attribute name="body" value="/WEB-INF/pages/login.jsp" />
     </definition>
-    <definition name="createuser" extends="defaultTemplate">
-        <put-attribute name="title" value="Hello Spring MVC" />
+    <definition name="createuser" extends="registerTemplate">
+        <put-attribute name="title" value="UserCreation" />
         <put-attribute name="body" value="/WEB-INF/pages/registration/register.jsp" />
     </definition>
-    <definition name="uploadfile" extends="defaultTemplate">
-        <put-attribute name="title" value="Hello Spring MVC" />
-        <put-attribute name="body" value="/WEB-INF/pages/registration/fileupload.jsp" />
+    <definition name="uploadfile" extends="registerTemplate">
+        <put-attribute name="title" value="Upload file" />
+        <put-attribute name="body" value="/WEB-INF/pages/file/fileupload.jsp" />
+    </definition>
+    <definition name="fileuploadsuccess" extends="registerTemplate">
+        <put-attribute name="title" value="Upload file" />
+        <put-attribute name="body" value="/WEB-INF/pages/file/fileuploadsuccessfully.jsp" />
+    </definition>
+    <definition name="pendingUsers" extends="defaultTemplate">
+        <put-attribute name="title" value="Pending User" />
+        <put-attribute name="body" value="/WEB-INF/pages/user/userList.jsp" />
     </definition>
 
 </tiles-definitions>

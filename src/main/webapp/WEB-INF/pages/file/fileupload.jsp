@@ -13,6 +13,7 @@
     <title></title>
 </head>
 <body>
+<di>Please upload your image</di>
 <div>
 <form:form  action="fileupload" modelAttribute="fileBucket" method="post" enctype="multipart/form-data">
   <table border="2" style="margin-left:50px">

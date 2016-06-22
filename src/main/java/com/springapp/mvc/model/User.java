@@ -35,6 +35,10 @@ public class User {
 	@Column(name="imageLocation")
 	private String imageLocation;
 
+    @NotEmpty
+    @Column(name="status")
+    private String status;
+
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "User_ROLE",
 			joinColumns = { @JoinColumn(name = "userId") },
@@ -93,16 +97,25 @@ public class User {
 		this.imageLocation = imageLocation;
 	}
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId=" + userId +
-				", name='" + name + '\'' +
-				", emailAddress='" + emailAddress + '\'' +
-				", loginId='" + loginId + '\'' +
-				", password='" + password + '\'' +
-				", imageLocation='" + imageLocation + '\'' +
-				", role=" + role +
-				'}';
-	}
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", loginId='" + loginId + '\'' +
+                ", password='" + password + '\'' +
+                ", imageLocation='" + imageLocation + '\'' +
+                ", status='" + status + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

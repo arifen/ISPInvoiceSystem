@@ -38,14 +38,17 @@ public class FileController {
     public void selectRole(Model model){
         model.addAttribute("fileBucket",new FileBucket());
     }
+
     @InitBinder("fileBucket")
     protected void initBinder(WebDataBinder binder) throws Exception {
         binder.setValidator(fileValidator);
     }
+
     @RequestMapping(value = { "/uploadfile" })
     public String getFileUploader() {
         return "uploadfile";
     }
+
     @RequestMapping(value = { "/fileupload" }, method = RequestMethod.POST)
     public String fileUplaod(@Validated FileBucket filebucket,BindingResult result,ModelMap modelMap,@RequestParam("userId") String userId) throws IOException {
         if(result.hasErrors()){
@@ -57,6 +60,7 @@ public class FileController {
         User user = userService.findByUserId(Long.valueOf(userId));
         user.setImageLocation(fileName);
         userService.saveUser(user);
-        return "redirect:login";
+        modelMap.addAttribute("msg","You successfully uplaod file. To login click on continue.");
+        return "fileuploadsuccess";
     }
 }

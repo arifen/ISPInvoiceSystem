@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
 
     void saveUser(User user);
-
+    List<User> findAllPendingUser();
     List<User> findUserByloginId(String loginId);
     User findByUserId(Long userId);
 }
