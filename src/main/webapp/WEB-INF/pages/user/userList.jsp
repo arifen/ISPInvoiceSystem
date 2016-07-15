@@ -17,13 +17,16 @@
             <table border="2" style="margin-left:50px">
                 <thead style="background-color: #31708f">
                     <td>
-                        Name:
+                        Name
                     </td>
                     <td>
                         Email Address
                     </td>
                     <td>
-                        Registration Status:
+                        Registration Status
+                    </td>
+                    <td>
+                        Action:
                     </td>
                 </thead>
                     <c:forEach var="listValue" items="${userlist}">

@@ -44,5 +44,17 @@
         <put-attribute name="title" value="Pending User" />
         <put-attribute name="body" value="/WEB-INF/pages/user/userList.jsp" />
     </definition>
+    <definition name="customerhome" extends="defaultTemplate">
+        <put-attribute name="title" value="CustomerHome"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customer/customerhome.jsp"/>
+    </definition>
+    <definition name="customercreate" extends="defaultTemplate">
+        <put-attribute name="title" value="CustomerCreation"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customer/customerform.jsp"/>
+    </definition>
+    <definition name="customercreatesuccessfull" extends="defaultTemplate">
+        <put-attribute name="title" value="Success"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customer/customerregistrationsuccess.jsp"/>
+    </definition>
 
 </tiles-definitions>

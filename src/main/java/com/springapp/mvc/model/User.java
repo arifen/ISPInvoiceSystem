@@ -1,6 +1,6 @@
 package com.springapp.mvc.model;
+
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -15,19 +15,22 @@ public class User {
 	@Column(name="userId")
 	private long userId;
 
+	//@NotEmpty
 	@Column(name="name")
 	@Size(min = 5, max = 20)
 	private String name;
 
-	@NotEmpty
+	//@NotEmpty
 	@Email
 	@Column(name="emailAddress")
 	private String emailAddress;
 
+	//@NotEmpty
 	@Size(min = 6, max = 15)
 	@Column(name="loginId")
 	private String loginId;
 
+	//@NotEmpty
 	@Size(min = 6, max = 256)
 	@Column(name="password")
 	private String password;
@@ -35,8 +38,8 @@ public class User {
 	@Column(name="imageLocation")
 	private String imageLocation;
 
-    @NotEmpty
-    @Column(name="status")
+	//@NotEmpty
+	@Column(name="status")
     private String status;
 
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

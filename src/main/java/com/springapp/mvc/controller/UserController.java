@@ -13,13 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.util.List;
 
@@ -70,8 +70,9 @@ public class UserController {
     }
 
     @RequestMapping(value = { "/userregister" }, method = RequestMethod.POST)
-    public String userregistration(@Validated @ModelAttribute("user") User user,BindingResult bnResult,ModelMap  modelMap) {
+    public String userregistration(@Valid @ModelAttribute("user") User user, BindingResult bnResult, ModelMap modelMap) {
         if(bnResult.hasErrors()){
+            System.out.print("finding error");
             modelMap.addAttribute("msg","User has not been saved");
             return "createuser";
         }
