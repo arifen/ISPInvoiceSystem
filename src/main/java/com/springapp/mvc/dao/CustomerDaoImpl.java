@@ -30,9 +30,19 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public List<Customer> findCustomerByUserId(String userId) {
         Session session = this.sessionFactory.getCurrentSession();
-        System.out.print("login id " + userId);
-        Query query = session.createQuery("from Customer where userId = :userId ");
+        System.out.print("customer Id " + userId);
+        Query query = session.createQuery("from Customer where customerId = :userId ");
         query.setParameter("userId", userId);
+        List<Customer> list = query.list();
+        return list;
+    }
+
+    @Override
+    public List<Customer> findCustomerByPackageId(long packageId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        System.out.print("Package Id " + packageId);
+        Query query = session.createQuery("from Customer where package_id = :packageId ");
+        query.setParameter("packageId", packageId);
         List<Customer> list = query.list();
         return list;
     }
@@ -45,5 +55,24 @@ public class CustomerDaoImpl implements CustomerDao {
         List<Customer> list = query.list();
         System.out.print("customerlist size customer dao" + list.size());
         return list;
+    }
+
+    @Override
+    public Customer findCustomerById(long id) {
+        /*
+        there is subtle difference between get and load method
+        */
+        Session session = this.sessionFactory.getCurrentSession();
+        return (Customer) session.get(Customer.class, id);
+    }
+
+    @Override
+    public void deleteCustomer(Customer customer) {
+        Session session = this.sessionFactory.getCurrentSession();
+        /*
+        * first remove customer from package set(list of customer) for delete customer .
+        * */
+        customer.getaPackage().getCustomerSet().remove(customer);
+        session.delete(customer);
     }
 }

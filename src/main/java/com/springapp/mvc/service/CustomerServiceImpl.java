@@ -28,9 +28,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public boolean editCustomer(Customer customer) {
+    public List<Customer> findCustomerByPackageId(long packageId) {
+        return customerDao.findCustomerByPackageId(packageId);
+    }
+
+    @Override
+    @Transactional
+    public Customer editCustomer(Customer customer) {
+        /*Customer customerUpdate = findCustomerById(customer.getId());
+        Smartphone sPhoneToUpdate = get(sp.getId());
+        if (sPhoneToUpdate == null)
+            throw new SmartphoneNotFoundException(sp.getId().toString());
+        sPhoneToUpdate.update(sp);*/
         customerDao.saveCustomer(customer);
-        return true;
+        return customer;
     }
 
     @Override
@@ -44,5 +55,19 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getAllCustomer() {
         System.out.print("customer service");
         return customerDao.findAllCustomer();
+    }
+
+    @Override
+    @Transactional
+    public Customer findCustomerById(long Id) {
+        return customerDao.findCustomerById(Id);
+    }
+
+    @Override
+    @Transactional
+    public Customer deleteById(long Id) {
+        Customer customer = findCustomerById(Id);
+        customerDao.deleteCustomer(customer);
+        return customer;
     }
 }

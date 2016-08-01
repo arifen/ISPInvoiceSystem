@@ -43,8 +43,8 @@
                 UserId:
             </td>
             <td>
-                <form:input path="userId"/>
-                <form:errors path="userId" cssStyle="color: red;"/>
+                <form:input path="customerId"/>
+                <form:errors path="customerId" cssStyle="color: red;"/>
             </td>
         </tr>
         <tr>
@@ -70,17 +70,10 @@
                 Package Name
             </td>
             <td>
-                <form:input path="packageName"/>
-                <form:errors path="packageName" cssStyle="color: red;"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Amount
-            </td>
-            <td>
-                <form:input path="amount"/>
-                <form:errors path="amount" cssStyle="color: red;"/>
+                <form:select path="aPackage">
+                    <form:options items="${Package}" itemValue="packageName" itemLabel="packageName"/>
+                </form:select>
+                <form:errors path="aPackage" cssStyle="color: red;"/>
             </td>
         </tr>
         <tr>
@@ -92,6 +85,7 @@
                 <form:errors path="mobileNumber" cssStyle="color: red;"/>
             </td>
         </tr>
+        <form:hidden path="status" value="active"/>
         <tr>
             <td>
                 <input type="submit" value="Submit">

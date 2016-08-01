@@ -2,6 +2,7 @@ package com.springapp.mvc.service;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.springapp.mvc.model.Customer;
@@ -40,7 +41,7 @@ public class PdfCreateServiceImpl implements PdfCreateService {
         Document document = null;
 
         try {
-            document = new Document();
+            document = new Document(PageSize.A4);
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
             System.out.print("userpass " + USER_PASSWORD + "ownerpass " + OWNER_PASSWORD);
             writer.setEncryption(USER_PASSWORD.getBytes(),

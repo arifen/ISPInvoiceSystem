@@ -10,9 +10,15 @@ import java.util.List;
 public interface CustomerService {
     boolean saveCustomer(Customer customer);
 
-    boolean editCustomer(Customer customer);
+    Customer editCustomer(Customer customer);
 
     List<Customer> findCustomerByUserId(String userId);
 
+    List<Customer> findCustomerByPackageId(long packageId);
+
     List<Customer> getAllCustomer();
+
+    Customer findCustomerById(long Id);
+
+    Customer deleteById(long Id);
 }

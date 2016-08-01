@@ -13,11 +13,9 @@
 <body>
 <ul>
     <li><a href="/customercreate">Customer Creation</a></li>
-    <li><a href="/customerhome">Customer Search</a></li>
-    <li><a href="/customerhome">See All Customer</a></li>
-    <li><a href="/customerhome">Invoice Creation</a></li>
-    <li><a href="/customerhome">Customer</a></li>
-    <li><a href="/downloadPDF">Download pdf</a></li>
+    <li><a href="/customerlist">See All Customer</a></li>
+    <li><a href="/customerbypackage">Search Customer By PackageName</a></li>
+    <li><a href="/downloadPDF">Invoice Creation</a></li>
 </ul>
 </body>
 </html>

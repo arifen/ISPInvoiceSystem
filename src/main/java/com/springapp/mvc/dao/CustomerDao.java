@@ -12,5 +12,11 @@ public interface CustomerDao {
 
     List<Customer> findCustomerByUserId(String userId);
 
+    List<Customer> findCustomerByPackageId(long packageId);
+
     List<Customer> findAllCustomer();
+
+    Customer findCustomerById(long id);
+
+    void deleteCustomer(Customer customer);
 }

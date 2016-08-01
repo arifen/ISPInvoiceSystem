@@ -29,10 +29,10 @@ public class CustomerValidation implements Validator {
     public void validate(Object target, Errors errors) {
         if (target instanceof Customer) {
             Customer customer = (Customer) target;
-            List<Customer> customerList = customerService.findCustomerByUserId(customer.getUserId());
+            List<Customer> customerList = customerService.findCustomerByUserId(customer.getCustomerId());
 
             if ((customerList != null) && (customerList.size() > 0)) {
-                errors.rejectValue("userId", "UserId.exists");
+                errors.rejectValue("customerId", "UserId.exists");
             }
         }
     }

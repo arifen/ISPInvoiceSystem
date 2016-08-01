@@ -53,8 +53,19 @@
         <put-attribute name="body" value="/WEB-INF/pages/customer/customerform.jsp"/>
     </definition>
     <definition name="customercreatesuccessfull" extends="defaultTemplate">
-        <put-attribute name="title" value="Success"/>
+        <put-attribute name="title" value=" Customer Create Successfull"/>
         <put-attribute name="body" value="/WEB-INF/pages/customer/customerregistrationsuccess.jsp"/>
     </definition>
-
+    <definition name="customerlist" extends="defaultTemplate">
+        <put-attribute name="title" value="Customer List"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customer/customerlist.jsp"/>
+    </definition>
+    <definition name="customereditpage" extends="defaultTemplate">
+        <put-attribute name="title" value="Customer Edit"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customer/customeredit.jsp"/>
+    </definition>
+    <definition name="allpackage" extends="defaultTemplate">
+        <put-attribute name="title" value="Customer Edit"/>
+        <put-attribute name="body" value="/WEB-INF/pages/package/packageList.jsp"/>
+    </definition>
 </tiles-definitions>

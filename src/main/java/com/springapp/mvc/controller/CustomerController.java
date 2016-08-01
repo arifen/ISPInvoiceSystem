@@ -1,20 +1,23 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Customer;
+import com.springapp.mvc.model.Package;
 import com.springapp.mvc.service.CustomerService;
+import com.springapp.mvc.service.PackageService;
 import com.springapp.mvc.validation.CustomerValidation;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 
 /**
  * Created by arifen on 7/5/16.
@@ -28,13 +31,34 @@ public class CustomerController {
     CustomerService customerService;
 
     @Autowired
+    @Qualifier("packageservice")
+    private PackageService packageService;
+
+    @Autowired
     @Qualifier("customerValidator")
     private CustomerValidation customerValidation;
 
-    /*@InitBinder("customer")
+    @ModelAttribute
+    public void selectPackage(Model model) {
+        System.out.print("selectpacke call");
+        model.addAttribute("Package", packageService.findAllPackage());
+    }
+
+    @InitBinder("customer")
     protected void initBinder(WebDataBinder binder) throws Exception {
-        binder.setValidator(customerValidation);
-    }*/
+        // binder.setValidator(customerValidation);
+       /*
+        * registerCustomEditor mainly use for different purposes custom validation,conversion and so many things
+        * class name,String field name(input field name),PropertyEditorSupport
+        * */
+        binder.registerCustomEditor(Package.class, "aPackage", new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String name) {
+                Package apackage = packageService.getPackageByName(name);
+                setValue(apackage);
+            }
+        });
+    }
 
     @RequestMapping(value = {"/customerhome"})
     public String customerhome() {
@@ -60,5 +84,49 @@ public class CustomerController {
         logger.debug("user save successfully");
         modelMap.addAttribute("customer", customer);
         return "customercreatesuccessfull";
+    }
+
+    @RequestMapping(value = {"/customerlist"})
+    public String showCustomerList(Model modelMap) {
+        modelMap.addAttribute("customerlists", customerService.getAllCustomer());
+        modelMap.addAttribute("msg", "All Customer List");
+        return "customerlist";
+    }
+
+    @RequestMapping(value = {"/customerbypackage"})
+    public String selectCustomerByPackage(Model modelMap) {
+        modelMap.addAttribute("msg", "select Customer Package");
+        return "allpackage";
+    }
+
+    @RequestMapping(value = {"/packagecustomer"}, method = RequestMethod.POST)
+    public String showcustomerbypackage(@RequestParam(value = "selectpackage", required = true) long packageId, Model modelMap) {
+        logger.debug("package id " + packageId);
+        modelMap.addAttribute("customerlists", customerService.findCustomerByPackageId(packageId));
+        modelMap.addAttribute("msg", "All Customer List");
+        return "customerlist";
+    }
+
+    @RequestMapping(value = "/customer/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Customer deleteCustomer(@PathVariable long id) {
+        System.out.print("come to delete method");
+        return customerService.deleteById(id);
+    }
+
+    @RequestMapping(value = "/customeredit/{id}", method = RequestMethod.GET)
+    public String editCustomerPage(@PathVariable long id, Model modelMap) {
+        Customer customer = customerService.findCustomerById(id);
+        modelMap.addAttribute("customer", customer);
+        return "customereditpage";
+    }
+
+    @RequestMapping(value = "/customer/editajax/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Customer editCustomer(@PathVariable long id, @RequestBody Customer customer) {
+        logger.debug("Customer Id  " + id);
+        customer.setId(id);
+        return customerService.editCustomer(customer);
+        //return new Customer();
     }
 }

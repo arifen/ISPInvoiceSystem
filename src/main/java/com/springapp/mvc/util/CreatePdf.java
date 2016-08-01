@@ -134,20 +134,27 @@ public class CreatePdf {
         Paragraph paragraph = new Paragraph();
         creteEmptyLine(paragraph, 1);
         document.add(paragraph);
+        Chunk glue = new Chunk(new VerticalPositionMark());
+        Calendar cal = Calendar.getInstance();
+        paragraph = new Paragraph("PackageName : " + customer.getaPackage().getPackageName(), TIME_ROMAN);
+        paragraph.add(new Chunk(glue));
+        paragraph.add("Monthly Internet Bill : " + new SimpleDateFormat("MMMM").format(cal.getTime()) + "," + new SimpleDateFormat("YYYY").format(cal.getTime()));
+        document.add(paragraph);
         document.add(invoiceFormat(customer));
         //document.newPage();
     }
 
     public static Paragraph invoiceFormat(Customer customer) {
-        Chunk glue = new Chunk(new VerticalPositionMark());
+        /*Chunk glue = new Chunk(new VerticalPositionMark());
         Calendar cal = Calendar.getInstance();
         Paragraph paragraph = new Paragraph();
-        // paragraph.add(new Paragraph("PackageName : " + customer.getPackageName(), TIME_ROMAN));
+        paragraph.add(new Paragraph("PackageName : " + customer.getaPackage().getPackageName(), TIME_ROMAN));
         paragraph.add(new Chunk(glue));
-        paragraph.add(new Paragraph("Monthly Internet Bill : " + new SimpleDateFormat("MMMM").format(cal.getTime()) + "," + new SimpleDateFormat("YYYY").format(cal.getTime()), TIME_ROMAN));
+        paragraph.add(new Paragraph("Monthly Internet Bill : " + new SimpleDateFormat("MMMM").format(cal.getTime()) + "," + new SimpleDateFormat("YYYY").format(cal.getTime()), TIME_ROMAN));*/
+        Paragraph paragraph = new Paragraph();
         creteEmptyLine(paragraph, 2);
-        paragraph.add(new Paragraph("UserId : " + customer.getUserId(), TIME_ROMAN_SMALL));
-        //paragraph.add(new Paragraph("Amount : " + customer.getAmount(), TIME_ROMAN_SMALL));
+        paragraph.add(new Paragraph("UserId : " + customer.getCustomerId(), TIME_ROMAN_SMALL));
+        paragraph.add(new Paragraph("Amount : " + customer.getaPackage().getAmount(), TIME_ROMAN_SMALL));
         paragraph.add(new Paragraph("Name : " + customer.getName(), TIME_ROMAN_SMALL));
         paragraph.add(new Paragraph("Phone Number : " + customer.getMobileNumber(), TIME_ROMAN_SMALL));
         paragraph.add(new Paragraph("Address : " + customer.getAddress(), TIME_ROMAN_SMALL));
