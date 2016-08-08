@@ -72,7 +72,7 @@ public class CreatePdf {
             /*
             * Read file from classpath
             * */
-            Resource resource = loader.getResource("classpath:image/ps_kaleidescape_logo.jpeg");
+            Resource resource = loader.getResource("classpath:image/logo.png");
             Image image = Image.getInstance(resource.getFile().getCanonicalPath());
             image.scaleAbsolute(50f, 50f);
             cell = new PdfPCell(image);
