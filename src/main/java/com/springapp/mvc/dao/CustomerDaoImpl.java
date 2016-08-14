@@ -1,13 +1,17 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.model.Customer;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by arifen on 7/5/16.
@@ -47,12 +51,45 @@ public class CustomerDaoImpl implements CustomerDao {
         return list;
     }
 
-    @Override
+    /*@Override
     public List<Customer> findAllCustomer() {
         System.out.println("customer dao");
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Customer ");
         List<Customer> list = query.list();
+        System.out.print("customerlist size customer dao" + list.size());
+        return list;
+    }*/
+
+    @Override
+    public Map<String, Object> findAllCustomerPagination(int begin, int pageSize) {
+        Map<String, Object> customerMap = new HashMap<String, Object>();
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Customer.class);
+        criteria.setFirstResult(begin);
+        criteria.setMaxResults(pageSize);
+        //Query query = session.createQuery("from Customer ");
+        List<Customer> list = criteria.list();//query.list();
+        customerMap.put("customeList", list);
+
+        Criteria criteriaa = session.createCriteria(Customer.class);
+        criteriaa.setProjection(Projections.rowCount());
+        Long total = (Long) criteriaa.uniqueResult();
+        customerMap.put("total", total);
+
+        return customerMap;
+    }
+
+    public List<Customer> findAllCustomer() {
+        System.out.println("customer dao");
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Customer.class);
+        criteria.setFirstResult(0);
+        criteria.setMaxResults(10);
+        //Query query = session.createQuery("from Customer ");
+        List<Customer> list = criteria.list();//query.list();
+        criteria.setProjection(Projections.rowCount());
+        Long total = (Long) criteria.uniqueResult();
         System.out.print("customerlist size customer dao" + list.size());
         return list;
     }

@@ -3,6 +3,7 @@ package com.springapp.mvc.dao;
 import com.springapp.mvc.model.Customer;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by arifen on 7/5/16.
@@ -19,4 +20,6 @@ public interface CustomerDao {
     Customer findCustomerById(long id);
 
     void deleteCustomer(Customer customer);
+
+    Map<String, Object> findAllCustomerPagination(int begin, int pageSize);
 }

@@ -3,6 +3,7 @@ package com.springapp.mvc.service;
 import com.springapp.mvc.model.Customer;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by arifen on 7/5/16.
@@ -17,6 +18,8 @@ public interface CustomerService {
     List<Customer> findCustomerByPackageId(long packageId);
 
     List<Customer> getAllCustomer();
+
+    Map<String, Object> getAllCustomerPagination(int pageNumber, int pageSize);
 
     Customer findCustomerById(long Id);
 

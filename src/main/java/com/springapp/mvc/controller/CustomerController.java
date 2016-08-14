@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by arifen on 7/5/16.
@@ -87,10 +89,31 @@ public class CustomerController {
     }
 
     @RequestMapping(value = {"/customerlist"})
-    public String showCustomerList(Model modelMap) {
+    public String showCustomerLists(Model modelMap) {
         modelMap.addAttribute("customerlists", customerService.getAllCustomer());
         modelMap.addAttribute("msg", "All Customer List");
         return "customerlist";
+    }
+
+    @RequestMapping(value = {"/customerlist/{pageNumber}"})
+    public String showCustomerList(Model modelMap, @PathVariable int pageNumber) {
+        Map<String, Object> customerServiceMap = new HashMap<String, Object>();
+        int pageSize = 5;
+        customerServiceMap = customerService.getAllCustomerPagination(pageNumber, pageSize);
+        customerServiceMap.get("customeList");
+        Long endRange = (Long) customerServiceMap.get("total");
+        if ((endRange % pageSize) == 0) {
+            endRange = endRange / pageSize;
+        } else {
+            endRange = (endRange / pageSize) + 1;
+        }
+        modelMap.addAttribute("customerlists", customerServiceMap.get("customeList"));
+        modelMap.addAttribute("beginIndex", 1);
+        modelMap.addAttribute("endIndex", endRange);
+        modelMap.addAttribute("currentIndex", pageNumber);
+        /*modelMap.addAttribute("customerlists", customerService.getAllCustomer());*/
+        modelMap.addAttribute("msg", "All Customer List");
+        return "customerlistpage";
     }
 
     @RequestMapping(value = {"/customerbypackage"})

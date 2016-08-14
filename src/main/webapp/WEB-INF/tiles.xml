@@ -68,4 +68,8 @@
         <put-attribute name="title" value="Customer Edit"/>
         <put-attribute name="body" value="/WEB-INF/pages/package/packageList.jsp"/>
     </definition>
+    <definition name="customerlistpage" extends="defaultTemplate">
+        <put-attribute name="title" value="Customer Edit"/>
+        <put-attribute name="body" value="/WEB-INF/pages/customer/customerlistpagination.jsp"/>
+    </definition>
 </tiles-definitions>

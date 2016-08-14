@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by arifen on 7/5/16.
@@ -48,6 +50,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public List<Customer> findCustomerByUserId(String userId) {
         return customerDao.findCustomerByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public Map<String, Object> getAllCustomerPagination(int pageNumber, int pageSize) {
+        int begin = (pageNumber - 1) * pageSize;
+        Map<String, Object> customerMap = new HashMap<String, Object>();
+        customerMap = customerDao.findAllCustomerPagination(begin, pageSize);
+        return customerMap;
     }
 
     @Override

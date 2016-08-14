@@ -9,7 +9,9 @@
 
 <html>
   <head>
-    <link rel="stylesheet" href="resources/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.7-dist/css/bootstrap.css"
+          type="text/css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
 
