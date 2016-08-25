@@ -131,6 +131,12 @@ public class CustomerController {
         return "allpackage";
     }
 
+    @RequestMapping(value = {"/invoicreate"})
+    public String invoiceCreation(Model modelMap) {
+        modelMap.addAttribute("msg", "select Customer Package");
+        return "allinvoicreation";
+    }
+
     @RequestMapping(value = {"/packagecustomer"}, method = RequestMethod.POST)
     public String showcustomerbypackage(@RequestParam(value = "selectpackage", required = true) long packageId, Model modelMap) {
         logger.debug("package id " + packageId);
@@ -139,7 +145,7 @@ public class CustomerController {
         return "customerlist";
     }
 
-    @RequestMapping(value = "/customer/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/customerlist/customer/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Customer deleteCustomer(@PathVariable long id) {
         System.out.print("come to delete method");

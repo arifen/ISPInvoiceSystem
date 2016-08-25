@@ -57,6 +57,33 @@ public class PdfController {
 
     }
 
+    @RequestMapping(value = "/downloadPDFperCustomer/{packageId}")
+    public void downloadPDFByPackage(HttpServletRequest request, HttpServletResponse response, @PathVariable long packageId) throws IOException {
+        System.out.println("package id " + packageId);
+        List<Customer> customerServiceList = customerService.findCustomerByPackageId(packageId);
+        Collections.sort(customerServiceList, Customer.customerpackageComparator);
+
+        final ServletContext servletContext = request.getSession().getServletContext();
+        final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+        final String temperotyFilePath = tempDirectory.getAbsolutePath();
+
+        String fileName = "Internet_Bill_Invoice.pdf";
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+
+        try {
+            pdfCreateService.createPdf(temperotyFilePath + "\\" + fileName, customerServiceList);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            baos = convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
+            OutputStream os = response.getOutputStream();
+            baos.writeTo(os);
+            os.flush();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+    }
+
     @RequestMapping(value = "/downloadPDF/{userId}")
     public void downloadPDFperUser(HttpServletRequest request, HttpServletResponse response, @PathVariable String userId) throws IOException {
         System.out.print("user Id " + userId);

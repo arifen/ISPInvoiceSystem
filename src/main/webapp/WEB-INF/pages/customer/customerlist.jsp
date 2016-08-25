@@ -21,7 +21,7 @@
                 try {
                     var token = $("meta[name='_csrf']").attr("content");
                     var header = $("meta[name='_csrf_header']").attr("content");
-                    alert("header " + header + " token " + token);
+                    /*alert("header " + header + " token " + token);*/
                     $.ajax({
                         url: $(event.target).attr("href"),
                         type: "DELETE",
