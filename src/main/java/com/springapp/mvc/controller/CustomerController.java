@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,6 +81,14 @@ public class CustomerController {
             logger.debug("error in customer model attribute");
             modelMap.addAttribute("msg", "User has not been saved");
             return "customercreate";
+        }
+        List<Customer> customerList = customerService.findCustomerByUserId(customer.getCustomerId());
+
+        if ((customerList != null) && (customerList.size() > 0)) {
+            logger.debug("error : Customer UserId Exist");
+            modelMap.addAttribute("msg", "User Id  already exists.");
+            return "customercreate";
+            // errors.rejectValue("customerId", "UserId.exists");
         }
         logger.debug("customer object " + customer);
         customerService.saveCustomer(customer);

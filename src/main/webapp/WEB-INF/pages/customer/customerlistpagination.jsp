@@ -150,41 +150,41 @@
             </tbody>
         </table>
     </div>
-</c:if>
-<div class="pagination">
-    <ul>
-        <c:choose>
-            <c:when test="${currentIndex == 1}">
-                <span class="disabled"><a href="#">first</a></span>
-                <span class="disabled"><a href="#">prev</a></span>
-            </c:when>
-            <c:otherwise>
-                <span><a href="${firstUrl}">first</a></span>
-                <span><a href="${prevUrl}">prev</a></span>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-            <c:url var="pageUrl" value="/customerlist/${i}"/>
+    <div class="pagination">
+        <ul>
             <c:choose>
-                <c:when test="${i == currentIndex}">
-                    <span class="active"><a href="${pageUrl}"><c:out value="${i}"/></a></span>
+                <c:when test="${currentIndex == 1}">
+                    <span class="disabled"><a href="#">first</a></span>
+                    <span class="disabled"><a href="#">prev</a></span>
                 </c:when>
                 <c:otherwise>
-                    <span><a href="${pageUrl}"><c:out value="${i}"/></a></span>
+                    <span><a href="${firstUrl}">first</a></span>
+                    <span><a href="${prevUrl}">prev</a></span>
                 </c:otherwise>
             </c:choose>
-        </c:forEach>
-        <c:choose>
-            <c:when test="${currentIndex == endIndex}">
-                <span class="disabled"><a href="#">next</a></span>
-                <span class="disabled"><a href="#">last</a></span>
-            </c:when>
-            <c:otherwise>
-                <span><a href="${nextUrl}">next</a></span>
-                <span><a href="${lastUrl}">last</a></span>
-            </c:otherwise>
-        </c:choose>
-    </ul>
-</div>
+            <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+                <c:url var="pageUrl" value="/customerlist/${i}"/>
+                <c:choose>
+                    <c:when test="${i == currentIndex}">
+                        <span class="activespan"><a href="${pageUrl}"><c:out value="${i}"/></a></span>
+                    </c:when>
+                    <c:otherwise>
+                        <span><a href="${pageUrl}"><c:out value="${i}"/></a></span>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            <c:choose>
+                <c:when test="${currentIndex == endIndex}">
+                    <span class="disabled"><a href="#">next</a></span>
+                    <span class="disabled"><a href="#">last</a></span>
+                </c:when>
+                <c:otherwise>
+                    <span><a href="${nextUrl}">next</a></span>
+                    <span><a href="${lastUrl}">last</a></span>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </div>
+</c:if>
 </body>
 </html>

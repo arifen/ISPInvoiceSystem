@@ -5,4 +5,6 @@
   Time: 6:02 PM
   To change this template use File | Settings | File Templates.
 --%>
-<h3>Header</h3>
+<h3><img
+        style="display: inline; -moz-transition-property: 194px; height: 49px; border-top-width: 0px; margin-top: -20px;"
+        src="${pageContext.request.contextPath}/resources/image/logo.png" alt="logo"/></h3>

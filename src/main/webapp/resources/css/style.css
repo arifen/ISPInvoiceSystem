@@ -7,7 +7,7 @@ body {
 }
 
 .header {
-    background: #676767;
+    background: #f9ac09;
     text-align: center;
     color: #fff;
     position: absolute;
@@ -30,6 +30,7 @@ body {
     height: 100%;
     padding-left: 10px;
     padding-top: 51px;
+    padding-bottom: 30px;
     overflow-y: auto;
     top: 50px;
     bottom: 30px;
@@ -75,4 +76,12 @@ body {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border: 1px solid #000;
+}
+
+.activespan {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #8f140f;
+    background-color: #f7ebed;
+    border-color: #f10b6c;
 }

@@ -6,6 +6,7 @@ import com.springapp.mvc.model.User;
 import com.springapp.mvc.service.RoleService;
 import com.springapp.mvc.service.UserService;
 import com.springapp.mvc.validation.UserValidator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 @Controller
 public class UserController {
-
+    final static Logger logger = Logger.getLogger(UserController.class);
     @Autowired
     @Qualifier("userService")
     private UserService userService;
@@ -54,7 +55,7 @@ public class UserController {
     with different init-binder methods typically applying to different groups of attributes or parameters*/
     @InitBinder("user")
     protected void initBinder(WebDataBinder binder) throws Exception {
-        binder.setValidator(userValidator);
+        //binder.setValidator(userValidator);
         binder.registerCustomEditor(Role.class, "role", new PropertyEditorSupport() {
             @Override
             public void setAsText(String name) {
@@ -74,6 +75,13 @@ public class UserController {
         if(bnResult.hasErrors()){
             System.out.print("finding error");
             modelMap.addAttribute("msg","User has not been saved");
+            return "createuser";
+        }
+        List<User> userList = userService.findUserByloginId(user.getLoginId());
+
+        if ((userList != null) && (userList.size() > 0)) {
+            logger.debug("User id exists");
+            modelMap.addAttribute("msg", "User Id already Exists");
             return "createuser";
         }
         user.setPassword(passwordEncoder.encodePassword(user.getPassword(),null));

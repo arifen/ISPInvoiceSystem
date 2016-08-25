@@ -16,6 +16,7 @@
     <li><a href="/customerlist/1">See All Customer</a></li>
     <li><a href="/customerbypackage">Search Customer By PackageName</a></li>
     <li><a href="/downloadPDF">Invoice Creation</a></li>
+    <li><a href="/greeting">Send Sms</a></li>
 </ul>
 </body>
 </html>
