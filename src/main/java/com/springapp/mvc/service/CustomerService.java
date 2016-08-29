@@ -24,4 +24,6 @@ public interface CustomerService {
     Customer findCustomerById(long Id);
 
     Customer deleteById(long Id);
+
+    Customer deactivate(long Id);
 }

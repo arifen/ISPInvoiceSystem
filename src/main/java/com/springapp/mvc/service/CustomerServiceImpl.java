@@ -76,6 +76,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
+    public Customer deactivate(long Id) {
+        Customer customer = findCustomerById(Id);
+        customer.setStatus("deactivate");
+        customerDao.saveCustomer(customer);
+        return customer;
+    }
+
+    @Override
+    @Transactional
     public Customer deleteById(long Id) {
         Customer customer = findCustomerById(Id);
         customerDao.deleteCustomer(customer);

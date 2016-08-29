@@ -85,7 +85,18 @@
                 <form:errors path="mobileNumber" cssStyle="color: red;"/>
             </td>
         </tr>
-        <form:hidden path="status" value="active"/>
+        <tr>
+            <td>
+                Status
+            </td>
+            <td>
+                <form:select path="status">
+                    <form:option value="active" label="active"/>
+                    <form:option value="deactive" label="deactive"/>
+                </form:select>
+            </td>
+        </tr>
+            <%--<form:hidden path="status" value="active"/>--%>
         <tr>
             <td>
                 <input type="submit" value="Submit">

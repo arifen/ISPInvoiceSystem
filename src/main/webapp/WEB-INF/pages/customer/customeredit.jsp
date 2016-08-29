@@ -14,7 +14,7 @@
     <title></title>
     <%-- need this tag to get csfr token--%>
     <sec:csrfMetaTags/>
-    <link rel="stylesheet" href="../resources/css/style.css" type="text/css"/>
+    <%--<link rel="stylesheet" href="../resources/css/style.css" type="text/css"/>--%>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -85,7 +85,7 @@
                             xhr.setRequestHeader(header, token);
                         },
                         success: function (customer) {
-                            var respContent = "this is arifen";
+                            var respContent = "";
                             //alert("customer " + customer);
                             respContent += "<span class='success'>Customer edited successfully: [";
                             respContent += customer.customerId + " : ";
@@ -177,7 +177,18 @@
                     <%--<form:errors path="mobileNumber" cssStyle="color: red;"/>--%>
             </td>
         </tr>
-        <form:hidden path="status" value="active"/>
+        <tr>
+            <td>
+                Status
+            </td>
+            <td>
+                <form:select path="status">
+                    <form:option value="active" label="active"/>
+                    <form:option value="deactive" label="deactive"/>
+                </form:select>
+            </td>
+        </tr>
+            <%--<form:hidden path="status" value="active"/>--%>
         <tr>
             <td>
                 <input type="submit" value="Submit">

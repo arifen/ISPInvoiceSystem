@@ -107,7 +107,7 @@ public class CustomerController {
     @RequestMapping(value = {"/customerlist/{pageNumber}"})
     public String showCustomerList(Model modelMap, @PathVariable int pageNumber) {
         Map<String, Object> customerServiceMap = new HashMap<String, Object>();
-        int pageSize = 5;
+        int pageSize = 10;
         customerServiceMap = customerService.getAllCustomerPagination(pageNumber, pageSize);
         customerServiceMap.get("customeList");
         Long endRange = (Long) customerServiceMap.get("total");
@@ -149,10 +149,14 @@ public class CustomerController {
     @ResponseBody
     public Customer deleteCustomer(@PathVariable long id) {
         System.out.print("come to delete method");
-        return customerService.deleteById(id);
+        /*
+        * below line use to delete anything. At this moment i do not want to delete this user. only i want to                   * change the status
+        * */
+        /*return customerService.deleteById(id);*/
+        return customerService.deactivate(id);
     }
 
-    @RequestMapping(value = "/customeredit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/customerlist/customeredit/{id}", method = RequestMethod.GET)
     public String editCustomerPage(@PathVariable long id, Model modelMap) {
         Customer customer = customerService.findCustomerById(id);
         modelMap.addAttribute("customer", customer);

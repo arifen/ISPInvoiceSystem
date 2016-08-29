@@ -40,7 +40,7 @@ public class PdfController {
         final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         final String temperotyFilePath = tempDirectory.getAbsolutePath();
 
-        String fileName = "Internet_Bill_Invoice.pdf";
+        String fileName = "Internet_Bill_Invoice_All_User.pdf";
         response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "attachment; filename=" + fileName);
 
@@ -67,7 +67,7 @@ public class PdfController {
         final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         final String temperotyFilePath = tempDirectory.getAbsolutePath();
 
-        String fileName = "Internet_Bill_Invoice.pdf";
+        String fileName = "Invoice_Package" + packageId + ".pdf";
         response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "attachment; filename=" + fileName);
 
@@ -94,7 +94,7 @@ public class PdfController {
         final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         final String temperotyFilePath = tempDirectory.getAbsolutePath();
 
-        String fileName = "Internet_Bill_Invoice.pdf";
+        String fileName = "Invoice_For_" + customerServiceList.get(0).getCustomerId() + ".pdf";
         response.setContentType("application/pdf");
         response.setHeader("Content-disposition", "attachment; filename=" + fileName);
 

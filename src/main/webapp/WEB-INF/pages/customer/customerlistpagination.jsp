@@ -23,7 +23,7 @@
                 try {
                     var token = $("meta[name='_csrf']").attr("content");
                     var header = $("meta[name='_csrf_header']").attr("content");
-                    alert("header " + header + " token " + token);
+                    //alert("header " + header + " token " + token);
                     $.ajax({
                         url: $(event.target).attr("href"),
                         type: "DELETE",
@@ -77,7 +77,7 @@
 </c:if>
 <c:if test="${not empty customerlists}">
     <div>
-        <table border="2">
+        <table border="2" style="margin-right: 1%">
             <thead style="background-color: #31708f">
             <td>
                 Name

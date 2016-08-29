@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -66,6 +67,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Map<String, Object> customerMap = new HashMap<String, Object>();
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Customer.class);
+        criteria.add(Restrictions.eq("status", "active"));
         criteria.setFirstResult(begin);
         criteria.setMaxResults(pageSize);
         //Query query = session.createQuery("from Customer ");
