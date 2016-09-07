@@ -236,6 +236,12 @@
             <artifactId>twilio-java-sdk</artifactId>
             <version>3.4.5</version>
         </dependency>
+        <!--Add google chart for showing charts-->
+        <dependency>
+            <groupId>com.googlecode.charts4j</groupId>
+            <artifactId>charts4j</artifactId>
+            <version>1.3</version>
+        </dependency>
     </dependencies>
 
     <build>

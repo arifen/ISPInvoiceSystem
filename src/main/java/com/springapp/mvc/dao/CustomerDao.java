@@ -15,7 +15,11 @@ public interface CustomerDao {
 
     List<Customer> findCustomerByPackageId(long packageId);
 
+    Long findActiveCustomersByPackageId(long packageId);
+
     List<Customer> findAllCustomer();
+
+    Long findAllActiveCustomer();
 
     Customer findCustomerById(long id);
 

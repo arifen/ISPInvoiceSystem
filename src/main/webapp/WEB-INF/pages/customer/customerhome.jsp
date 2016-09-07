@@ -18,6 +18,7 @@
     <%--<li><a href="/downloadPDF">Invoice Creation</a></li>--%>
     <li><a href="/invoicreate">Invoice Creation</a></li>
     <li><a href="/greeting">Send Sms</a></li>
+    <li><a href="/piechart">Show Chart</a></li>
 </ul>
 </body>
 </html>

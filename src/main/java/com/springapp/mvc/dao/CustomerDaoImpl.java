@@ -52,16 +52,6 @@ public class CustomerDaoImpl implements CustomerDao {
         return list;
     }
 
-    /*@Override
-    public List<Customer> findAllCustomer() {
-        System.out.println("customer dao");
-        Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Customer ");
-        List<Customer> list = query.list();
-        System.out.print("customerlist size customer dao" + list.size());
-        return list;
-    }*/
-
     @Override
     public Map<String, Object> findAllCustomerPagination(int begin, int pageSize) {
         Map<String, Object> customerMap = new HashMap<String, Object>();
@@ -82,12 +72,40 @@ public class CustomerDaoImpl implements CustomerDao {
         return customerMap;
     }
 
+    @Override
+    public Long findActiveCustomersByPackageId(long packageId) {
+       /* Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Customer.class);
+        criteria.add(Restrictions.and(Restrictions.eq("status", "active"),Restrictions.eq("package_id", packageId)));
+        *//*criteria.add(Restrictions.eq("status", "active"));
+        criteria.add(Restrictions.eq("package_id", packageId));*//*
+        *//*criteria.setProjection(Projections.rowCount());
+        return (Long) criteria.uniqueResult();*//*
+        return Long.valueOf(criteria.list().size());*/
+        Session session = this.sessionFactory.getCurrentSession();
+        System.out.print("Package Id " + packageId);
+        Query query = session.createQuery("from Customer where package_id = :packageId  and status = :status");
+        query.setParameter("packageId", packageId);
+        query.setParameter("status", "active");
+        List<Customer> list = query.list();
+        return Long.valueOf(list.size());
+    }
+
+    @Override
+    public Long findAllActiveCustomer() {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Customer.class);
+        criteria.add(Restrictions.eq("status", "active"));
+        criteria.setProjection(Projections.rowCount());
+        return (Long) criteria.uniqueResult();
+    }
+
     public List<Customer> findAllCustomer() {
         System.out.println("customer dao");
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Customer.class);
-        criteria.setFirstResult(0);
-        criteria.setMaxResults(10);
+        /*criteria.setFirstResult(0);
+        criteria.setMaxResults(10);*/
         //Query query = session.createQuery("from Customer ");
         List<Customer> list = criteria.list();//query.list();
         criteria.setProjection(Projections.rowCount());
